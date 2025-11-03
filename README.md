@@ -1,42 +1,44 @@
 # 🎰 Exploring the Multi-Armed Bandit Problem
 
-This project investigates several elegant strategies for addressing the classic **multi-armed bandit challenge**—a scenario where a gambler faces a row of slot machines (one-armed bandits), each with different, unknown payout probabilities. This represents a foundational problem in **online reinforcement learning**, where an agent must learn optimal behavior through trial and error.
+This project impliments algorithms for addressing the classic **multi-armed bandit problem**, a scenario where a gambler faces a row of slot machines (one-armed bandits), each with different, unknown payout probabilities. This represents a foundational problem in **online reinforcement learning**, where an agent must learn optimal behavior through trial and error.
 
-The problem has profound practical applications across diverse domains: `digital marketing campaigns`, `recommendation systems`, `adaptive clinical trials`, and `algorithmic trading`. At its heart lies a fundamental tension: the **exploration-exploitation tradeoff**—balancing the discovery of potentially better options against leveraging what's already known to work well.
+The problem has  practical applications across diverse domains: `digital marketing campaigns`, `recommendation systems`, `adaptive clinical trials`, and `algorithmic trading`. At its heart lies a fundamental tradeoff of the **exploration-exploitation** i.e balancing the discovery of potentially better options against leveraging what's already known to work well.
 
 ## 📋 What This Notebook Contains
 
 ### 🎯 Bandit Environment
-A simulation class that models the **N-armed Bernoulli bandit**, where each arm operates as an independent, stationary `Bernoulli process` with fixed but unknown reward probabilities.
+We've built a simulation class for the `N-armed Bernoulli bandit`. Think of it as a virtual casino where each slot machine (arm) has its own secret win rate that stays constant but you don't know what it is until you start playing.
 
-### ⚙️ Simulation Harness
-An experimental framework that orchestrates interactions between `decision policies` and the `bandit environment`, tracking performance metrics over time.
+### ⚙️ Simulation
+An experimental roll play that records interactions between `decision policies` and the `bandit environment`, tracking performance metrics over time.
 
 ### 🧠 Policy Implementations
-Four distinct algorithms, each coded from scratch and rigorously compared:
+I have explained, implemented and compared four algorithms
 
 **1. Random Selection**  
-A baseline strategy providing uniform exploration—arms are selected with **equal probability**, establishing a performance lower bound.
+
+A baseline strategy providing uniform exploration—arms are selected with **equal probability** at each timestep. This approach assumes no prior knowledge and gathers unbiased reward samples from all arms, making it useful for establishing a **performance lower bound** or as a **control policy** in stochastic bandit experiments.
+
+---
 
 **2. ε-Greedy**  
-A simple yet effective approach that exploits the current best arm with probability `(1-ε)`, while exploring randomly with probability `ε`.
 
-**3. Bayesian UCB**  
-A sophisticated method leveraging **Bayesian posterior credible intervals** (`95%`) to balance optimism about uncertain arms with confidence in well-explored ones.
+A simple yet effective approach that exploits the **empirically best arm** (highest mean reward estimate) with probability (1−ε) and explores randomly with probability ε. The reward estimates are updated incrementally based on observed rewards, allowing continuous refinement of value estimates. This strategy balances exploration and exploitation via a tunable ε parameter, often decayed over time to favor exploitation after sufficient exploration.
 
-**4. Thompson Sampling**  
-An elegant **probability matching strategy** that samples from `Beta posterior distributions`, naturally balancing exploration and exploitation through randomization.
+---
 
-## 📦 Dependencies
+**3. Bayesian UCB** 
 
-```python
-import random
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-```
+It leverages **Bayesian posterior credible intervals**, typically the upper quantile of a Beta(α, β) distribution, to form an **upper confidence bound (UCB)** for each arm. At each step, the arm with the highest upper bound is selected, promoting arms that are both promising and uncertain. This integrates **uncertainty-aware optimism**, balancing exploration of high-variance arms with exploitation of well-sampled ones, and often yields lower regret than classical UCB in stochastic environments.
 
-**Required Libraries:**
+---
+
+**4. Thompson Sampling**
+
+A **probability matching strategy** that samples reward probabilities directly from **posterior Beta distributions** for each arm. At every round, it draws one sample per arm and selects the arm with the highest sampled value. This randomized selection naturally balances **exploration and exploitation**, adapting posterior uncertainty over time, and achieves **asymptotically optimal regret** for many bandit formulations.
+
+
+## 📦 Dependencies (Required Libraries:)
 - `random` (standard library)
 - `numpy` for numerical computations
 - `matplotlib` for visualization
@@ -44,7 +46,7 @@ from scipy import stats
 
 ## 🚀 Getting Started
 
-Run the notebook to compare the performance of different bandit algorithms across various scenarios. The simulation framework allows for customization of parameters including:
+Run the notebook to compare the performance of different bandit algorithms across various scenarios. During simulation you can customize the following parameters:
 
 - `number of arms`
 - `reward probabilities`
@@ -56,11 +58,6 @@ Run the notebook to compare the performance of different bandit algorithms acros
 - Understand the **exploration-exploitation tradeoff**
 - Implement classic **bandit algorithms** from scratch
 - Compare algorithm performance through **simulation**
-- Gain insights into **online learning** and decision making under uncertainty
-
-## 💡 Key Insights
-
-This notebook provides both **theoretical insights** and **practical implementations**, making it an ideal resource for understanding how intelligent agents learn to make optimal decisions under uncertainty.
 
 ## 📊 Use Cases
 
