@@ -38,7 +38,7 @@ It leverages **Bayesian posterior credible intervals**, typically the upper quan
 A **probability matching strategy** that samples reward probabilities directly from **posterior Beta distributions** for each arm. At every round, it draws one sample per arm and selects the arm with the highest sampled value. This randomized selection naturally balances **exploration and exploitation**, adapting posterior uncertainty over time, and achieves **asymptotically optimal regret** for many bandit formulations.
 
 
-## 📦 Dependencies (Required Libraries:)
+## 📦 Dependencies (Required Libraries)
 - `random` (standard library)
 - `numpy` for numerical computations
 - `matplotlib` for visualization
