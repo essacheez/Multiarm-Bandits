@@ -53,12 +53,6 @@ Run the notebook to compare the performance of different bandit algorithms acros
 - `time horizon`
 - `exploration parameters`
 
-## 🎓 Learning Objectives
-
-- Understand the **exploration-exploitation tradeoff**
-- Implement classic **bandit algorithms** from scratch
-- Compare algorithm performance through **simulation**
-
 ## 📊 Use Cases
 
 **Digital Marketing**: `A/B testing` and campaign optimization  
